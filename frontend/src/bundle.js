@@ -1116,7 +1116,6 @@ function App() {
   const [quoteCategory, setQuoteCategory] = useState('');
   const [toast, setToast] = useState(null);
 
-  const handleCycleDoor = () => {
   const handleSetDoorMode = (mode) => {
     setDoorMode(mode);
     if (mode === 'interior') setActiveCategory('interior');
