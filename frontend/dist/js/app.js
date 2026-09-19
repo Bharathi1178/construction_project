@@ -62,7 +62,7 @@ export default function App() {
       />
 
       {/* 4. Featured Projects Showcase */}
-      <FeaturedProjects activeCategory={activeCategory} onOpenQuote={() => handleOpenQuote()} />
+      <FeaturedProjects onOpenQuote={() => handleOpenQuote()} />
 
       {/* 5. Why Choose Us (6 Pillars) */}
       <WhyChooseUs />

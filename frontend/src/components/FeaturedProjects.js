@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { fetchProjects } from '../api.js';
 
-export default function FeaturedProjects({ onOpenQuote }) {
-  const [activeFilter, setActiveFilter] = useState('all');
+export default function FeaturedProjects({ activeCategory = 'all', onOpenQuote }) {
+  const [activeFilter, setActiveFilter] = useState(activeCategory || 'all');
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (activeCategory) {
+      setActiveFilter(activeCategory);
+    }
+  }, [activeCategory]);
 
   useEffect(() => {
     async function loadProjects() {

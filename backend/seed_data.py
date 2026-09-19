@@ -151,20 +151,65 @@ def seed_database():
     print(f"Created {len(interior_services) + len(construction_services)} services.")
 
     projects = [
+        # 100% PURE STRUCTURAL & CIVIL CONSTRUCTION PROJECTS
         {
-            "title": "The Glass Pavillion Estate",
+            "title": "The Grand Horizon Civil & Structural Estate",
             "category": "construction",
             "project_type": "residential",
             "location": "Beverly Hills, CA",
             "year": "2024",
-            "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-            "description": "A 9,200 sq. ft. modern architectural marvel featuring cantilevered concrete planes, floor-to-ceiling curtain glass, and an infinity water pavilion.",
+            "image_url": "https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=1200&q=80",
+            "description": "Deep foundation engineering, reinforced concrete columns, and architectural framing executed for a multi-level hillside estate.",
             "area_sqft": 9200,
             "duration": "14 Months",
             "client_type": "Private Client",
             "is_featured": True,
             "order": 1
         },
+        {
+            "title": "Vertex Commercial Tower Development",
+            "category": "construction",
+            "project_type": "commercial",
+            "location": "Financial District, London",
+            "year": "2023",
+            "image_url": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+            "description": "12-storey commercial tower structural core construction featuring heavy crane rigging, post-tensioned floor plates, and curtain wall engineering.",
+            "area_sqft": 45000,
+            "duration": "22 Months",
+            "client_type": "Vertex Global Capital",
+            "is_featured": True,
+            "order": 3
+        },
+        {
+            "title": "Solarium High-Elevation Structural Framing",
+            "category": "construction",
+            "project_type": "residential",
+            "location": "Aspen, Colorado",
+            "year": "2023",
+            "image_url": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80",
+            "description": "Engineered timber, structural steel framework, and sub-structure waterproofing for a seismic-grade mountain residential property.",
+            "area_sqft": 6800,
+            "duration": "11 Months",
+            "client_type": "Private Family Estate",
+            "is_featured": True,
+            "order": 5
+        },
+        {
+            "title": "Crestview Heritage Civil Restructuring & Retrofit",
+            "category": "construction",
+            "project_type": "residential",
+            "location": "Cotswolds, UK",
+            "year": "2023",
+            "image_url": "https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=1200&q=80",
+            "description": "Comprehensive civil overhaul, heavy stone underpinning, perimeter scaffolding, and structural floor reinforcement.",
+            "area_sqft": 7500,
+            "duration": "16 Months",
+            "client_type": "Private Estate",
+            "is_featured": True,
+            "order": 8
+        },
+
+        # 100% PURE LUXURY BESPOKE INTERIOR PROJECTS
         {
             "title": "Aura Penthouse Duplex",
             "category": "interior",
@@ -178,20 +223,6 @@ def seed_database():
             "client_type": "Private Residence",
             "is_featured": True,
             "order": 2
-        },
-        {
-            "title": "Vertex Corporate Headquarters",
-            "category": "construction",
-            "project_type": "commercial",
-            "location": "Financial District, London",
-            "year": "2023",
-            "image_url": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
-            "description": "12-storey high-performance commercial tower featuring sustainable solar glass facades, post-tensioned floor plates, and rooftop executive gardens.",
-            "area_sqft": 45000,
-            "duration": "22 Months",
-            "client_type": "Vertex Global Capital",
-            "is_featured": True,
-            "order": 3
         },
         {
             "title": "Monolith Executive Lounge & Office",
@@ -208,20 +239,6 @@ def seed_database():
             "order": 4
         },
         {
-            "title": "Solarium Hilltop Residence",
-            "category": "construction",
-            "project_type": "residential",
-            "location": "Aspen, Colorado",
-            "year": "2023",
-            "image_url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
-            "description": "Seismic-grade engineered timber and reinforced concrete chalet with panoramic triple-glazed thermal facades and radiant subterranean heating.",
-            "area_sqft": 6800,
-            "duration": "11 Months",
-            "client_type": "Private Family Estate",
-            "is_featured": True,
-            "order": 5
-        },
-        {
             "title": "Nordic Warmth Kitchen & Living",
             "category": "interior",
             "project_type": "residential",
@@ -236,32 +253,18 @@ def seed_database():
             "order": 6
         },
         {
-            "title": "Omnia Boutique Retail Gallery",
+            "title": "Omnia Luxury Master Suite",
             "category": "interior",
-            "project_type": "commercial",
+            "project_type": "residential",
             "location": "Champs-Élysées, Paris",
             "year": "2024",
-            "image_url": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80",
-            "description": "Luxury haute horlogerie boutique with travertine display podiums, recessed magnetic track lighting, and private VIP salon rooms.",
+            "image_url": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80",
+            "description": "Sensory master suite retreat featuring custom walk-in wardrobes, velvet wall cladding, ambient architectural cove lighting, and bespoke headboards.",
             "area_sqft": 3400,
             "duration": "4 Months",
-            "client_type": "Maison Omnia",
+            "client_type": "Private Client",
             "is_featured": True,
             "order": 7
-        },
-        {
-            "title": "Crestview Heritage Villa Remodel",
-            "category": "construction",
-            "project_type": "residential",
-            "location": "Cotswolds, UK",
-            "year": "2023",
-            "image_url": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
-            "description": "Full structural retrofit and subterranean expansion of an 18th-century stone manor, reinforced with discreet steel underpinning and modern glazing.",
-            "area_sqft": 7500,
-            "duration": "16 Months",
-            "client_type": "Private Estate",
-            "is_featured": True,
-            "order": 8
         }
     ]
 

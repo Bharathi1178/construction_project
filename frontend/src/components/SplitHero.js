@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 export default function SplitHero({ onSelectCategory, onOpenQuote }) {
   const [doorMode, setDoorMode] = useState('split'); // 'split' | 'interior' | 'construction'
+  const [hoverPreview, setHoverPreview] = useState(null); // 'interior' | 'construction' | null
 
   const handleDoorClick = (side) => {
     if (doorMode === side) return;
@@ -40,151 +41,208 @@ export default function SplitHero({ onSelectCategory, onOpenQuote }) {
 
       <div className="split-hero-container">
         {/* ==============================================================
-            LEFT: INTERIOR SLIDING DOOR (NIGHT EFFECT)
+            LEFT SLIDING DOOR: INTERIOR
             ============================================================== */}
         <div 
           className={`split-pane interior-pane ${
             doorMode === 'split' 
-              ? 'mode-split' 
+              ? `mode-split ${hoverPreview === 'interior' ? 'hover-interior' : ''}` 
               : doorMode === 'interior' 
                 ? 'mode-interior-active' 
                 : 'mode-construction-active'
           }`}
-          onClick={() => {
-            if (doorMode === 'construction' || doorMode === 'split') {
-              setDoorMode('interior');
-            }
-          }}
+          onMouseEnter={() => { if (doorMode === 'split') setHoverPreview('interior'); }}
+          onMouseLeave={() => setHoverPreview(null)}
+          onClick={() => handleDoorClick('interior')}
         >
-          {/* Night Ambience Luxury Villa Interior Background */}
           <div 
             className="split-bg" 
             style={{ 
-              backgroundImage: `url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1800&q=85')` 
+              backgroundImage: `url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=85')` 
             }} 
           />
           <div className="split-overlay" />
-
-          {doorMode === 'split' ? (
-            /* FRONT 50/50 VIEW: Clean Image & Page Title Only */
-            <div className="split-content split-mode-front">
-              <h1 className="split-heading">INTERIOR</h1>
-              <div className="split-front-hint">
-                <span>✦ Click to Explore</span>
-              </div>
+          
+          {/* Architectural Bronze Door Pull Handle (shown in split mode) */}
+          {doorMode === 'split' && (
+            <div className="door-pull-handle" title="Slide Door Open">
+              <div className="door-handle-groove" />
+              <div className="door-handle-groove" />
+              <div className="door-handle-groove" />
             </div>
-          ) : doorMode === 'interior' ? (
-            /* EXPANDED INTERIOR VIEW: All details revealed upon click */
-            <div className="split-content split-mode-expanded">
-              <div className="interior-night-badge">
-                🌙 NIGHT AMBIENCE • BESPOKE INTERIORS
-              </div>
-              <h1 className="split-heading">INTERIOR</h1>
-              <h2 className="split-subheading">Design Spaces That Inspire</h2>
-              <p className="split-desc">
-                Bespoke residential and commercial interior environments crafted with warm ambient illumination, 
-                curated Italian marbles, custom joinery, and sensory spatial planning.
-              </p>
+          )}
 
+          <div className="split-content">
+            <div className="sliding-door-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/><path d="m8 9 3 3-3 3"/>
+              </svg>
+              {doorMode === 'interior' ? 'Sliding Door Open • Full Realm' : '01 / Interior Architecture'}
+            </div>
+
+            <h1 className="split-heading">INTERIOR</h1>
+            <h2 className="split-subheading">Design Spaces That Inspire</h2>
+            
+            <p className="split-desc">
+              Bespoke residential and commercial interior environments crafted with curated marbles, 
+              custom joinery, ergonomic space planning, and museum-grade architectural lighting.
+            </p>
+
+            {/* In full slide mode, reveal active service capability tags */}
+            {doorMode === 'interior' && (
               <div className="sliding-door-service-pills">
                 {interiorPills.map((pill, idx) => (
                   <span key={idx} className="door-service-pill">✦ {pill}</span>
                 ))}
               </div>
+            )}
 
-              <div className="split-cta-wrap">
-                <button className="btn btn-primary" onClick={(e) => handleExploreServices('interior', e)}>
-                  Explore Interior Services (8) →
+            <div className="split-cta-wrap">
+              {doorMode === 'interior' ? (
+                <>
+                  <button 
+                    className="btn btn-primary"
+                    onClick={(e) => handleExploreServices('interior', e)}
+                  >
+                    Explore Interior Services (8)
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </button>
+
+                  <button 
+                    className="reset-door-btn"
+                    onClick={handleResetSplit}
+                    title="Slide Construction Door Back"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="19" y1="12" x2="5" y2="12"></line>
+                      <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Close Sliding Door (50/50)
+                  </button>
+                </>
+              ) : (
+                <button 
+                  className="btn btn-primary"
+                  onClick={(e) => { e.stopPropagation(); handleDoorClick('interior'); }}
+                >
+                  Slide Open Interior
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
                 </button>
-                <button className="reset-door-btn" onClick={handleResetSplit}>
-                  ← Return to Split View (50/50)
-                </button>
-              </div>
+              )}
             </div>
-          ) : null}
+          </div>
+        </div>
+
+        {/* Center Connected Badge & Divider (Hidden when a sliding door is opened) */}
+        <div className={`split-center-badge ${doorMode !== 'split' ? 'hidden-in-slide' : ''}`}>
+          <div className="center-line-top" />
+          <div className="center-pill">Click To Slide Door</div>
+          <div className="center-line-bottom" />
         </div>
 
         {/* ==============================================================
-            RIGHT: CONSTRUCTION SLIDING DOOR (DAY EFFECT)
+            RIGHT SLIDING DOOR: CONSTRUCTION
             ============================================================== */}
         <div 
           className={`split-pane construction-pane ${
             doorMode === 'split' 
-              ? 'mode-split' 
+              ? `mode-split ${hoverPreview === 'construction' ? 'hover-construction' : ''}` 
               : doorMode === 'construction' 
                 ? 'mode-construction-active' 
                 : 'mode-interior-active'
           }`}
-          onClick={() => {
-            if (doorMode === 'interior' || doorMode === 'split') {
-              setDoorMode('construction');
-            }
-          }}
+          onMouseEnter={() => { if (doorMode === 'split') setHoverPreview('construction'); }}
+          onMouseLeave={() => setHoverPreview(null)}
+          onClick={() => handleDoorClick('construction')}
         >
-          {/* User-provided Blueprint & Architectural Drafting Background */}
           <div 
             className="split-bg" 
             style={{ 
-              backgroundImage: `url('img/construction-blueprint.jpg')` 
+              backgroundImage: `url('https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=1800&q=85')` 
             }} 
           />
           <div className="split-overlay" />
-
-          {doorMode === 'split' ? (
-            /* FRONT 50/50 VIEW: Clean Image & Page Title Only */
-            <div className="split-content split-mode-front">
-              <h1 className="construction-heading">CONSTRUCTION</h1>
-              <div className="split-front-hint construction-hint">
-                <span>Click to Explore ➔</span>
-              </div>
+          
+          {/* Architectural Bronze Door Pull Handle (shown in split mode) */}
+          {doorMode === 'split' && (
+            <div className="door-pull-handle" title="Slide Door Open">
+              <div className="door-handle-groove" />
+              <div className="door-handle-groove" />
+              <div className="door-handle-groove" />
             </div>
-          ) : doorMode === 'construction' ? (
-            /* EXPANDED CONSTRUCTION VIEW: All details revealed upon click */
-            <div className="split-content split-mode-expanded">
-              <div className="construction-day-badge">
-                ☀️ DAYLIGHT EXECUTION • CIVIL ENGINEERING
-              </div>
+          )}
 
-              <h1 className="construction-heading">CONSTRUCTION</h1>
-              <h2 className="construction-subheading">Precision Engineering & Structural Excellence</h2>
-              
-              <p className="construction-desc">
-                Ground-up commercial developments, luxury residential estates, and seismic structural foundations 
-                engineered with rigorous geotechnical standards and milestone execution.
-              </p>
+          <div className="split-content">
+            <div className="sliding-door-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m16 9-3 3 3 3"/>
+              </svg>
+              {doorMode === 'construction' ? 'Sliding Door Open • Full Realm' : '02 / Civil Engineering'}
+            </div>
 
-              {/* Live Structural Metric HUD Cards */}
-              <div className="construction-hud-grid">
-                <div className="construction-hud-card">
-                  <div className="hud-card-val">2.8M+</div>
-                  <div className="hud-card-label">Sq. Ft. Built</div>
-                </div>
-                <div className="construction-hud-card">
-                  <div className="hud-card-val">SEISMIC IV</div>
-                  <div className="hud-card-label">Core Standard</div>
-                </div>
-                <div className="construction-hud-card">
-                  <div className="hud-card-val">0% DEFECT</div>
-                  <div className="hud-card-label">Handover SLA</div>
-                </div>
-              </div>
+            <h1 className="split-heading">CONSTRUCTION</h1>
+            <h2 className="split-subheading">Build With Confidence</h2>
+            
+            <p className="split-desc">
+              Ground-up residential estates and commercial developments engineered with structural precision, 
+              geotechnical excellence, and on-time milestone execution.
+            </p>
 
-              <div className="construction-tech-pills">
+            {/* In full slide mode, reveal active service capability tags */}
+            {doorMode === 'construction' && (
+              <div className="sliding-door-service-pills">
                 {constructionPills.map((pill, idx) => (
-                  <span key={idx} className="construction-tech-pill">⬢ {pill}</span>
+                  <span key={idx} className="door-service-pill">✦ {pill}</span>
                 ))}
               </div>
+            )}
 
-              <div className="split-cta-wrap">
-                <button className="btn-construction-action" onClick={(e) => handleExploreServices('construction', e)}>
-                  Explore Construction Services (8) ➔
+            <div className="split-cta-wrap">
+              {doorMode === 'construction' ? (
+                <>
+                  <button 
+                    className="btn btn-primary"
+                    onClick={(e) => handleExploreServices('construction', e)}
+                  >
+                    Explore Construction Services (8)
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </button>
+
+                  <button 
+                    className="reset-door-btn"
+                    onClick={handleResetSplit}
+                    title="Slide Interior Door Back"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                    Close Sliding Door (50/50)
+                  </button>
+                </>
+              ) : (
+                <button 
+                  className="btn btn-secondary"
+                  onClick={(e) => { e.stopPropagation(); handleDoorClick('construction'); }}
+                >
+                  Slide Open Construction
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
                 </button>
-                <button className="btn-construction-reset" onClick={handleResetSplit}>
-                  ← Return to Split View (50/50)
-                </button>
-              </div>
+              )}
             </div>
-          ) : null}
+          </div>
         </div>
       </div>
 

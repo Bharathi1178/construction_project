@@ -24,14 +24,121 @@ const fallbackServices = [
 ];
 
 const fallbackProjects = [
-  { id: 1, title: "The Glass Pavillion Estate", category: "construction", category_display: "Construction", project_type: "residential", project_type_display: "Residential", location: "Beverly Hills, CA", year: "2024", image_url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80", description: "A 9,200 sq. ft. modern architectural marvel featuring cantilevered concrete planes, floor-to-ceiling curtain glass, and an infinity water pavilion.", area_sqft: 9200, duration: "14 Months" },
-  { id: 2, title: "Aura Penthouse Duplex", category: "interior", category_display: "Interior Design", project_type: "residential", project_type_display: "Residential", location: "Tribeca, New York", year: "2024", image_url: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80", description: "Minimalist luxury master penthouse styled with Italian Statuario marble slabs, fluted walnut paneling, and customized bronze light fixtures.", area_sqft: 4800, duration: "7 Months" },
-  { id: 3, title: "Vertex Corporate Headquarters", category: "construction", category_display: "Construction", project_type: "commercial", project_type_display: "Commercial", location: "Financial District, London", year: "2023", image_url: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80", description: "12-storey high-performance commercial tower featuring sustainable solar glass facades, post-tensioned floor plates, and rooftop executive gardens.", area_sqft: 45000, duration: "22 Months" },
-  { id: 4, title: "Monolith Executive Lounge & Office", category: "interior", category_display: "Interior Design", project_type: "commercial", project_type_display: "Commercial", location: "Marina Bay, Singapore", year: "2024", image_url: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80", description: "Biophilic corporate executive headquarters blending bespoke acoustic felt slatted ceilings, natural volcanic stone islands, and private boardroom pods.", area_sqft: 12500, duration: "5 Months" },
-  { id: 5, title: "Solarium Hilltop Residence", category: "construction", category_display: "Construction", project_type: "residential", project_type_display: "Residential", location: "Aspen, Colorado", year: "2023", image_url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80", description: "Seismic-grade engineered timber and reinforced concrete chalet with panoramic triple-glazed thermal facades and radiant subterranean heating.", area_sqft: 6800, duration: "11 Months" },
-  { id: 6, title: "Nordic Warmth Kitchen & Living", category: "interior", category_display: "Interior Design", project_type: "residential", project_type_display: "Residential", location: "Kensington, London", year: "2024", image_url: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80", description: "Architectural kitchen remodel incorporating integrated Gaggenau appliances, monolithic Dekton island with waterfall edge, and custom smoked-oak joinery.", area_sqft: 2200, duration: "3 Months" },
-  { id: 7, title: "Omnia Boutique Retail Gallery", category: "interior", category_display: "Interior Design", project_type: "commercial", project_type_display: "Commercial", location: "Champs-Élysées, Paris", year: "2024", image_url: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80", description: "Luxury haute horlogerie boutique with travertine display podiums, recessed magnetic track lighting, and private VIP salon rooms.", area_sqft: 3400, duration: "4 Months" },
-  { id: 8, title: "Crestview Heritage Villa Remodel", category: "construction", category_display: "Construction", project_type: "residential", project_type_display: "Residential", location: "Cotswolds, UK", year: "2023", image_url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80", description: "Full structural retrofit and subterranean expansion of an 18th-century stone manor, reinforced with discreet steel underpinning and modern glazing.", area_sqft: 7500, duration: "16 Months" }
+  // 100% PURE STRUCTURAL & CIVIL CONSTRUCTION PROJECTS
+  { 
+    id: 1, 
+    title: "The Grand Horizon Civil & Structural Estate", 
+    category: "construction", 
+    category_display: "Construction", 
+    project_type: "residential", 
+    project_type_display: "Residential", 
+    location: "Beverly Hills, CA", 
+    year: "2024", 
+    image_url: "https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=1200&q=80", 
+    description: "Deep foundation engineering, reinforced concrete columns, and architectural framing executed for a multi-level hillside estate.", 
+    area_sqft: 9200, 
+    duration: "14 Months" 
+  },
+  { 
+    id: 3, 
+    title: "Vertex Commercial Tower Development", 
+    category: "construction", 
+    category_display: "Construction", 
+    project_type: "commercial", 
+    project_type_display: "Commercial", 
+    location: "Financial District, London", 
+    year: "2023", 
+    image_url: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80", 
+    description: "12-storey commercial tower structural core construction featuring heavy crane rigging, post-tensioned floor plates, and curtain wall engineering.", 
+    area_sqft: 45000, 
+    duration: "22 Months" 
+  },
+  { 
+    id: 5, 
+    title: "Solarium High-Elevation Structural Framing", 
+    category: "construction", 
+    category_display: "Construction", 
+    project_type: "residential", 
+    project_type_display: "Residential", 
+    location: "Aspen, Colorado", 
+    year: "2023", 
+    image_url: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80", 
+    description: "Engineered timber, structural steel framework, and sub-structure waterproofing for a seismic-grade mountain residential property.", 
+    area_sqft: 6800, 
+    duration: "11 Months" 
+  },
+  { 
+    id: 8, 
+    title: "Crestview Heritage Civil Restructuring & Retrofit", 
+    category: "construction", 
+    category_display: "Construction", 
+    project_type: "residential", 
+    project_type_display: "Residential", 
+    location: "Cotswolds, UK", 
+    year: "2023", 
+    image_url: "https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=1200&q=80", 
+    description: "Comprehensive civil overhaul, heavy stone underpinning, perimeter scaffolding, and structural floor reinforcement.", 
+    area_sqft: 7500, 
+    duration: "16 Months" 
+  },
+
+  // 100% PURE LUXURY BESPOKE INTERIOR PROJECTS
+  { 
+    id: 2, 
+    title: "Aura Penthouse Duplex", 
+    category: "interior", 
+    category_display: "Interior Design", 
+    project_type: "residential", 
+    project_type_display: "Residential", 
+    location: "Tribeca, New York", 
+    year: "2024", 
+    image_url: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80", 
+    description: "Minimalist luxury master penthouse styled with Italian Statuario marble slabs, fluted walnut paneling, and customized bronze light fixtures.", 
+    area_sqft: 4800, 
+    duration: "7 Months" 
+  },
+  { 
+    id: 4, 
+    title: "Monolith Executive Lounge & Office", 
+    category: "interior", 
+    category_display: "Interior Design", 
+    project_type: "commercial", 
+    project_type_display: "Commercial", 
+    location: "Marina Bay, Singapore", 
+    year: "2024", 
+    image_url: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80", 
+    description: "Biophilic corporate executive headquarters blending bespoke acoustic felt slatted ceilings, natural volcanic stone islands, and private boardroom pods.", 
+    area_sqft: 12500, 
+    duration: "5 Months" 
+  },
+  { 
+    id: 6, 
+    title: "Nordic Warmth Kitchen & Living", 
+    category: "interior", 
+    category_display: "Interior Design", 
+    project_type: "residential", 
+    project_type_display: "Residential", 
+    location: "Kensington, London", 
+    year: "2024", 
+    image_url: "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80", 
+    description: "Architectural kitchen remodel incorporating integrated Gaggenau appliances, monolithic Dekton island with waterfall edge, and custom smoked-oak joinery.", 
+    area_sqft: 2200, 
+    duration: "3 Months" 
+  },
+  { 
+    id: 7, 
+    title: "Omnia Luxury Master Suite", 
+    category: "interior", 
+    category_display: "Interior Design", 
+    project_type: "residential", 
+    project_type_display: "Residential", 
+    location: "Champs-Élysées, Paris", 
+    year: "2024", 
+    image_url: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80", 
+    description: "Sensory master suite retreat featuring custom walk-in wardrobes, velvet wall cladding, ambient architectural cove lighting, and bespoke headboards.", 
+    area_sqft: 3400, 
+    duration: "4 Months" 
+  }
 ];
 
 async function apiFetchServices(category) {
@@ -235,11 +342,11 @@ function SplitHero({ doorMode, setDoorMode, onSelectCategory, onOpenQuote }) {
             }
           }}
         >
-          {/* Night Ambience Luxury Villa Interior Background */}
+          {/* 100% Genuine Luxury Interior Living & Architectural Ambience Background */}
           <div 
             className="split-bg" 
             style={{ 
-              backgroundImage: `url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1800&q=85')` 
+              backgroundImage: `url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=85')` 
             }} 
           />
           <div className="split-overlay" />
@@ -300,11 +407,11 @@ function SplitHero({ doorMode, setDoorMode, onSelectCategory, onOpenQuote }) {
             }
           }}
         >
-          {/* User-provided Blueprint & Architectural Drafting Background */}
+          {/* 100% Genuine Civil Engineering & Architectural Construction Background */}
           <div 
             className="split-bg" 
             style={{ 
-              backgroundImage: `url('img/construction-blueprint.jpg')` 
+              backgroundImage: `url('https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=1800&q=85')` 
             }} 
           />
           <div className="split-overlay" />
@@ -471,10 +578,16 @@ function ServicesSection({ activeCategory, onCategoryChange, onOpenQuoteWithServ
 }
 
 // 5. Featured Projects
-function FeaturedProjects({ onOpenQuote }) {
-  const [activeFilter, setActiveFilter] = useState('all');
+function FeaturedProjects({ activeCategory = 'all', onOpenQuote }) {
+  const [activeFilter, setActiveFilter] = useState(activeCategory || 'all');
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    if (activeCategory) {
+      setActiveFilter(activeCategory);
+    }
+  }, [activeCategory]);
 
   useEffect(() => {
     let cat = 'all', pType = 'all';
@@ -1004,12 +1117,20 @@ function App() {
   const [toast, setToast] = useState(null);
 
   const handleCycleDoor = () => {
+  const handleSetDoorMode = (mode) => {
+    setDoorMode(mode);
+    if (mode === 'interior') setActiveCategory('interior');
+    else if (mode === 'construction') setActiveCategory('construction');
+    else if (mode === 'split') setActiveCategory('all');
+  };
+
+  const handleCycleDoor = () => {
     let nextMode = 'interior';
     if (doorMode === 'split') nextMode = 'interior';
     else if (doorMode === 'interior') nextMode = 'construction';
     else if (doorMode === 'construction') nextMode = 'split';
     
-    setDoorMode(nextMode);
+    handleSetDoorMode(nextMode);
     
     // Smoothly bring hero into view to observe the sliding door
     const heroEl = document.getElementById('hero');
@@ -1037,7 +1158,7 @@ function App() {
       {/* Signature Split Hero with shared door state */}
       <SplitHero 
         doorMode={doorMode}
-        setDoorMode={setDoorMode}
+        setDoorMode={handleSetDoorMode}
         onSelectCategory={(cat) => setActiveCategory(cat)} 
         onOpenQuote={() => handleOpenQuote()} 
       />
@@ -1050,7 +1171,7 @@ function App() {
 
       <AboutCompany onOpenQuote={() => handleOpenQuote()} />
       <ServicesSection activeCategory={activeCategory} onCategoryChange={(cat) => setActiveCategory(cat)} onOpenQuoteWithService={(svc, cat) => handleOpenQuote(svc, cat)} />
-      <FeaturedProjects onOpenQuote={() => handleOpenQuote()} />
+      <FeaturedProjects activeCategory={activeCategory} onOpenQuote={() => handleOpenQuote()} />
       <WhyChooseUs />
       <OurProcess />
       <CallToAction onOpenQuote={() => handleOpenQuote()} onScrollToContact={scrollToContact} />
