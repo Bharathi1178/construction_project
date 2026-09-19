@@ -454,6 +454,91 @@ img {
 }
 
 /* ==========================================================================
+   PAGE VIEW ROUTER & PAGE HERO BANNER
+   ========================================================================== */
+.page-view-wrapper {
+  padding-top: 75px;
+  min-height: 85vh;
+  animation: fadeInPageView 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInPageView {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-header-banner {
+  padding: 4.5rem 0 3.25rem 0;
+  background: linear-gradient(180deg, rgba(20, 20, 26, 0.98) 0%, rgba(11, 11, 13, 0.98) 100%);
+  border-bottom: 1px solid var(--border-dark);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.page-header-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 650px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(194, 155, 97, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.page-header-breadcrumbs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-light-muted);
+  margin-bottom: 1.25rem;
+}
+
+.page-header-breadcrumbs a {
+  color: var(--accent-gold);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.page-header-breadcrumbs a:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+.breadcrumb-item {
+  color: var(--text-light-secondary);
+}
+
+.page-header-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+.page-header-subtitle {
+  font-size: 1.08rem;
+  color: var(--text-light-secondary);
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
    SPLIT-SCREEN HERO UI (Architectural Sliding Door Mechanism)
    ========================================================================== */
 .split-hero-wrapper {

@@ -236,7 +236,7 @@ function SvgIcon({ name }) {
 }
 
 // 1. Header Component
-function Header({ onOpenQuote, onSelectProjectCategory }) {
+function Header({ onOpenQuote, onNavigate, currentPage = 'home' }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -247,36 +247,51 @@ function Header({ onOpenQuote, onSelectProjectCategory }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollTo = (id) => {
+  const handleNavClick = (pageName, filter = null) => {
     setMobileMenuOpen(false);
     setDropdownOpen(false);
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const handleProjectFilterClick = (filter) => {
-    setMobileMenuOpen(false);
-    setDropdownOpen(false);
-    if (onSelectProjectCategory) {
-      onSelectProjectCategory(filter);
+    if (onNavigate) {
+      onNavigate(pageName, filter);
     }
-    const el = document.getElementById('projects');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-inner">
-        <a href="#hero" className="logo" onClick={(e) => { e.preventDefault(); scrollTo('hero'); }}>
+        <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}>
           <span className="logo-badge">V&S</span>
           <span className="logo-text">VASTU <span>&</span> STRUX</span>
         </a>
 
         <nav>
           <ul className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-            <li><a href="#hero" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('hero'); }}>Home</a></li>
-            <li><a href="#about" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('about'); }}>About Us</a></li>
-            <li><a href="#services" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('services'); }}>Services</a></li>
+            <li>
+              <a 
+                href="#home" 
+                className={`nav-link ${currentPage === 'home' ? 'active' : ''}`} 
+                onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#about" 
+                className={`nav-link ${currentPage === 'about' ? 'active' : ''}`} 
+                onClick={(e) => { e.preventDefault(); handleNavClick('about'); }}
+              >
+                About Us
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#services" 
+                className={`nav-link ${currentPage === 'services' ? 'active' : ''}`} 
+                onClick={(e) => { e.preventDefault(); handleNavClick('services'); }}
+              >
+                Services
+              </a>
+            </li>
             <li 
               className="nav-item-dropdown"
               onMouseEnter={() => setDropdownOpen(true)}
@@ -284,8 +299,8 @@ function Header({ onOpenQuote, onSelectProjectCategory }) {
             >
               <a 
                 href="#projects" 
-                className="nav-link nav-link-has-dropdown" 
-                onClick={(e) => { e.preventDefault(); handleProjectFilterClick('all'); }}
+                className={`nav-link nav-link-has-dropdown ${currentPage === 'projects' ? 'active' : ''}`} 
+                onClick={(e) => { e.preventDefault(); handleNavClick('projects', 'all'); }}
               >
                 Projects
                 <svg className="nav-dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -295,27 +310,27 @@ function Header({ onOpenQuote, onSelectProjectCategory }) {
 
               <ul className={`nav-dropdown-menu ${dropdownOpen ? 'show' : ''}`}>
                 <li>
-                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('all')}>
+                  <div className="nav-dropdown-item" onClick={() => handleNavClick('projects', 'all')}>
                     <span className="nav-dropdown-icon">✦</span> All Projects
                   </div>
                 </li>
                 <li>
-                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('interior')}>
+                  <div className="nav-dropdown-item" onClick={() => handleNavClick('projects', 'interior')}>
                     <span className="nav-dropdown-icon">🛋️</span> Interior Design
                   </div>
                 </li>
                 <li>
-                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('construction')}>
+                  <div className="nav-dropdown-item" onClick={() => handleNavClick('projects', 'construction')}>
                     <span className="nav-dropdown-icon">🏗️</span> Construction
                   </div>
                 </li>
                 <li>
-                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('residential')}>
+                  <div className="nav-dropdown-item" onClick={() => handleNavClick('projects', 'residential')}>
                     <span className="nav-dropdown-icon">🏡</span> Residential
                   </div>
                 </li>
                 <li>
-                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('commercial')}>
+                  <div className="nav-dropdown-item" onClick={() => handleNavClick('projects', 'commercial')}>
                     <span className="nav-dropdown-icon">🏢</span> Commercial
                   </div>
                 </li>
@@ -324,23 +339,39 @@ function Header({ onOpenQuote, onSelectProjectCategory }) {
             {mobileMenuOpen && (
               <li className="mobile-only-subnav" style={{ width: '100%' }}>
                 <ul className="mobile-nav-sublinks">
-                  <li className="mobile-sublink" onClick={() => handleProjectFilterClick('interior')}>
+                  <li className="mobile-sublink" onClick={() => handleNavClick('projects', 'interior')}>
                     <span>🛋️</span> Interior Design
                   </li>
-                  <li className="mobile-sublink" onClick={() => handleProjectFilterClick('construction')}>
+                  <li className="mobile-sublink" onClick={() => handleNavClick('projects', 'construction')}>
                     <span>🏗️</span> Construction
                   </li>
-                  <li className="mobile-sublink" onClick={() => handleProjectFilterClick('residential')}>
+                  <li className="mobile-sublink" onClick={() => handleNavClick('projects', 'residential')}>
                     <span>🏡</span> Residential
                   </li>
-                  <li className="mobile-sublink" onClick={() => handleProjectFilterClick('commercial')}>
+                  <li className="mobile-sublink" onClick={() => handleNavClick('projects', 'commercial')}>
                     <span>🏢</span> Commercial
                   </li>
                 </ul>
               </li>
             )}
-            <li><a href="#process" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('process'); }}>Process</a></li>
-            <li><a href="#contact" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}>Contact</a></li>
+            <li>
+              <a 
+                href="#process" 
+                className={`nav-link ${currentPage === 'process' ? 'active' : ''}`} 
+                onClick={(e) => { e.preventDefault(); handleNavClick('process'); }}
+              >
+                Process
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#contact" 
+                className={`nav-link ${currentPage === 'contact' ? 'active' : ''}`} 
+                onClick={(e) => { e.preventDefault(); handleNavClick('contact'); }}
+              >
+                Contact
+              </a>
+            </li>
           </ul>
         </nav>
 
@@ -356,7 +387,7 @@ function Header({ onOpenQuote, onSelectProjectCategory }) {
 }
 
 // 2. Sliding Door Split Hero Component
-function SplitHero({ doorMode, setDoorMode, onSelectCategory, onOpenQuote }) {
+function SplitHero({ doorMode, setDoorMode, onSelectCategory, onOpenQuote, onNavigate }) {
   const [hoverPreview, setHoverPreview] = useState(null);
 
   const handleDoorClick = (side) => {
@@ -372,8 +403,12 @@ function SplitHero({ doorMode, setDoorMode, onSelectCategory, onOpenQuote }) {
   const handleExploreServices = (category, e) => {
     e.stopPropagation();
     onSelectCategory(category);
-    const el = document.getElementById('services');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigate) {
+      onNavigate('services', category);
+    } else {
+      const el = document.getElementById('services');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleCycleNext = (currentSide, e) => {
@@ -1075,14 +1110,15 @@ function QuoteModal({ isOpen, onClose, initialService, initialCategory, onShowTo
 }
 
 // 11. Footer
-function Footer({ onOpenQuote, onSelectCategory }) {
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+function Footer({ onOpenQuote, onNavigate, onSelectCategory }) {
   const handleServiceClick = (cat) => {
-    onSelectCategory(cat);
-    scrollTo('services');
+    if (onNavigate) {
+      onNavigate('services', cat);
+    } else if (onSelectCategory) {
+      onSelectCategory(cat);
+      const el = document.getElementById('services');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -1090,7 +1126,7 @@ function Footer({ onOpenQuote, onSelectCategory }) {
       <div className="container">
         <div className="footer-top-grid">
           <div className="footer-brand">
-            <a href="#hero" className="logo" onClick={(e) => { e.preventDefault(); scrollTo('hero'); }}>
+            <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); if (onNavigate) onNavigate('home'); }}>
               <span className="logo-badge">V&S</span>
               <span className="logo-text">VASTU <span>&</span> STRUX</span>
             </a>
@@ -1128,7 +1164,13 @@ function Footer({ onOpenQuote, onSelectCategory }) {
         </div>
         <div className="footer-bottom">
           <div>© {new Date().getFullYear()} VASTU & STRUX Architectural Studio & Construction Inc. All rights reserved.</div>
-          <div style={{ display: 'flex', gap: '1.5rem' }}><a href="#privacy">Privacy Policy</a><a href="#terms">Terms</a></div>
+          <div style={{ display: 'flex', gap: '1.5rem' }}>
+            <a href="#about" onClick={(e) => { e.preventDefault(); if (onNavigate) onNavigate('about'); }}>About Us</a>
+            <a href="#services" onClick={(e) => { e.preventDefault(); if (onNavigate) onNavigate('services'); }}>Services</a>
+            <a href="#projects" onClick={(e) => { e.preventDefault(); if (onNavigate) onNavigate('projects'); }}>Projects</a>
+            <a href="#process" onClick={(e) => { e.preventDefault(); if (onNavigate) onNavigate('process'); }}>Process</a>
+            <a href="#contact" onClick={(e) => { e.preventDefault(); if (onNavigate) onNavigate('contact'); }}>Contact</a>
+          </div>
         </div>
       </div>
     </footer>
@@ -1180,14 +1222,58 @@ function StickyFloatingDoorHandle({ doorMode, onCycleDoor }) {
   );
 }
 
+// Page Header Component for Interior Pages
+function PageHeader({ tag, title, subtitle, breadcrumb = [], onNavigateHome }) {
+  return (
+    <div className="page-header-banner">
+      <div className="container">
+        <div className="page-header-breadcrumbs">
+          <a href="#home" onClick={(e) => { e.preventDefault(); if (onNavigateHome) onNavigateHome(); }}>Home</a>
+          {breadcrumb.map((b, i) => (
+            <span key={i} className="breadcrumb-item"> / {b}</span>
+          ))}
+        </div>
+        <span className="section-tag">{tag}</span>
+        <h1 className="page-header-title">{title}</h1>
+        {subtitle && <p className="page-header-subtitle">{subtitle}</p>}
+      </div>
+    </div>
+  );
+}
+
 // MASTER APP ORCHESTRATOR
 function App() {
+  const getInitialPage = () => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (['about', 'services', 'projects', 'process', 'contact'].includes(hash)) {
+        return hash;
+      }
+    }
+    return 'home';
+  };
+
+  const [currentPage, setCurrentPage] = useState(getInitialPage);
   const [doorMode, setDoorMode] = useState('split');
   const [activeCategory, setActiveCategory] = useState('all');
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [quoteService, setQuoteService] = useState('');
   const [quoteCategory, setQuoteCategory] = useState('');
   const [toast, setToast] = useState(null);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (['about', 'services', 'projects', 'process', 'contact'].includes(hash)) {
+        setCurrentPage(hash);
+      } else {
+        setCurrentPage('home');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const handleSetDoorMode = (mode) => {
     setDoorMode(mode);
@@ -1204,7 +1290,6 @@ function App() {
     
     handleSetDoorMode(nextMode);
     
-    // Smoothly bring hero into view to observe the sliding door
     const heroEl = document.getElementById('hero');
     if (heroEl) heroEl.scrollIntoView({ behavior: 'smooth' });
   };
@@ -1216,15 +1301,14 @@ function App() {
   };
 
   const showToast = (message, type = 'success') => setToast({ message, type });
-  const scrollToContact = () => {
-    const el = document.getElementById('contact');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
 
-  const handleSelectProjectCategory = (filter) => {
-    setActiveCategory(filter);
-    const el = document.getElementById('projects');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  const navigateTo = (page, filter = null) => {
+    setCurrentPage(page);
+    if (filter) {
+      setActiveCategory(filter);
+    }
+    window.location.hash = page === 'home' ? '' : `#${page}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const isConstructionTheme = (doorMode === 'construction' || activeCategory === 'construction');
@@ -1232,33 +1316,129 @@ function App() {
   return (
     <div className={`app-root ${isConstructionTheme ? 'theme-construction-page' : ''}`}>
       <Header 
+        currentPage={currentPage}
+        onNavigate={navigateTo}
         onOpenQuote={() => handleOpenQuote()} 
-        onSelectProjectCategory={handleSelectProjectCategory} 
       />
       
-      {/* Signature Split Hero with shared door state */}
-      <SplitHero 
-        doorMode={doorMode}
-        setDoorMode={handleSetDoorMode}
-        onSelectCategory={(cat) => setActiveCategory(cat)} 
+      {/* 1. HOME VIEW: ONLY the Split Sliding Door Hero Page + Sticky Handle */}
+      {currentPage === 'home' && (
+        <>
+          <SplitHero 
+            doorMode={doorMode}
+            setDoorMode={handleSetDoorMode}
+            onSelectCategory={(cat) => setActiveCategory(cat)} 
+            onOpenQuote={() => handleOpenQuote()} 
+            onNavigate={navigateTo}
+          />
+          <StickyFloatingDoorHandle 
+            doorMode={doorMode} 
+            onCycleDoor={handleCycleDoor} 
+          />
+        </>
+      )}
+
+      {/* 2. ABOUT US VIEW */}
+      {currentPage === 'about' && (
+        <div className="page-view-wrapper">
+          <PageHeader 
+            tag="ABOUT VASTU & STRUX"
+            title="Architectural Heritage & Turnkey Mastery"
+            subtitle="Bridging timeless aesthetic vision with uncompromising structural rigor since 2011."
+            breadcrumb={["About Us"]}
+            onNavigateHome={() => navigateTo('home')}
+          />
+          <AboutCompany onOpenQuote={() => handleOpenQuote()} />
+          <WhyChooseUs />
+          <CallToAction onOpenQuote={() => handleOpenQuote()} onScrollToContact={() => navigateTo('contact')} />
+        </div>
+      )}
+
+      {/* 3. SERVICES VIEW */}
+      {currentPage === 'services' && (
+        <div className="page-view-wrapper">
+          <PageHeader 
+            tag="COMPREHENSIVE CAPABILITIES"
+            title="Bespoke Interiors & Precision Construction"
+            subtitle="Explore our full spectrum of 16 integrated services spanning luxury interior design and turnkey civil engineering."
+            breadcrumb={["Services"]}
+            onNavigateHome={() => navigateTo('home')}
+          />
+          <ServicesSection 
+            activeCategory={activeCategory} 
+            onCategoryChange={(cat) => setActiveCategory(cat)} 
+            onOpenQuoteWithService={(svc, cat) => handleOpenQuote(svc, cat)} 
+          />
+          <CallToAction onOpenQuote={() => handleOpenQuote()} onScrollToContact={() => navigateTo('contact')} />
+        </div>
+      )}
+
+      {/* 4. PROJECTS VIEW */}
+      {currentPage === 'projects' && (
+        <div className="page-view-wrapper">
+          <PageHeader 
+            tag="PORTFOLIO & CASE STUDIES"
+            title="Architectural & Interior Showcase"
+            subtitle="Explore our curated collection of residential villas, commercial developments, and structural masterpieces."
+            breadcrumb={["Projects"]}
+            onNavigateHome={() => navigateTo('home')}
+          />
+          <FeaturedProjects 
+            activeCategory={activeCategory} 
+            onOpenQuote={() => handleOpenQuote()} 
+          />
+          <CallToAction onOpenQuote={() => handleOpenQuote()} onScrollToContact={() => navigateTo('contact')} />
+        </div>
+      )}
+
+      {/* 5. PROCESS VIEW */}
+      {currentPage === 'process' && (
+        <div className="page-view-wrapper">
+          <PageHeader 
+            tag="METHODOLOGY & STANDARDS"
+            title="Our 6-Stage Delivery Process"
+            subtitle="A structured, transparent workflow engineered to ensure flawless precision, zero timeline surprises, and absolute peace of mind."
+            breadcrumb={["Process"]}
+            onNavigateHome={() => navigateTo('home')}
+          />
+          <OurProcess />
+          <WhyChooseUs />
+          <CallToAction onOpenQuote={() => handleOpenQuote()} onScrollToContact={() => navigateTo('contact')} />
+        </div>
+      )}
+
+      {/* 6. CONTACT VIEW */}
+      {currentPage === 'contact' && (
+        <div className="page-view-wrapper">
+          <PageHeader 
+            tag="STUDIO & SITE VISITS"
+            title="Connect With Our Principal Architects"
+            subtitle="Discuss your upcoming residential or commercial endeavor with our estimating engineers and design partners."
+            breadcrumb={["Contact"]}
+            onNavigateHome={() => navigateTo('home')}
+          />
+          <ContactSection onShowToast={showToast} />
+        </div>
+      )}
+
+      {/* Universal Luxury Footer */}
+      <Footer 
         onOpenQuote={() => handleOpenQuote()} 
+        onNavigate={navigateTo}
+        onSelectCategory={(cat) => {
+          setActiveCategory(cat);
+          navigateTo('services', cat);
+        }} 
       />
 
-      {/* Sticky Floating Right-Side Architectural Door Handle */}
-      <StickyFloatingDoorHandle 
-        doorMode={doorMode} 
-        onCycleDoor={handleCycleDoor} 
+      <QuoteModal 
+        isOpen={isQuoteOpen} 
+        onClose={() => setIsQuoteOpen(false)} 
+        initialService={quoteService} 
+        initialCategory={quoteCategory} 
+        onShowToast={showToast} 
       />
 
-      <AboutCompany onOpenQuote={() => handleOpenQuote()} />
-      <ServicesSection activeCategory={activeCategory} onCategoryChange={(cat) => setActiveCategory(cat)} onOpenQuoteWithService={(svc, cat) => handleOpenQuote(svc, cat)} />
-      <FeaturedProjects activeCategory={activeCategory} onOpenQuote={() => handleOpenQuote()} />
-      <WhyChooseUs />
-      <OurProcess />
-      <CallToAction onOpenQuote={() => handleOpenQuote()} onScrollToContact={scrollToContact} />
-      <ContactSection onShowToast={showToast} />
-      <Footer onOpenQuote={() => handleOpenQuote()} onSelectCategory={(cat) => setActiveCategory(cat)} />
-      <QuoteModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} initialService={quoteService} initialCategory={quoteCategory} onShowToast={showToast} />
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   );
