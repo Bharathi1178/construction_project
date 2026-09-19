@@ -236,9 +236,10 @@ function SvgIcon({ name }) {
 }
 
 // 1. Header Component
-function Header({ onOpenQuote }) {
+function Header({ onOpenQuote, onSelectProjectCategory }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -248,7 +249,18 @@ function Header({ onOpenQuote }) {
 
   const scrollTo = (id) => {
     setMobileMenuOpen(false);
+    setDropdownOpen(false);
     const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleProjectFilterClick = (filter) => {
+    setMobileMenuOpen(false);
+    setDropdownOpen(false);
+    if (onSelectProjectCategory) {
+      onSelectProjectCategory(filter);
+    }
+    const el = document.getElementById('projects');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -265,7 +277,68 @@ function Header({ onOpenQuote }) {
             <li><a href="#hero" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('hero'); }}>Home</a></li>
             <li><a href="#about" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('about'); }}>About Us</a></li>
             <li><a href="#services" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('services'); }}>Services</a></li>
-            <li><a href="#projects" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('projects'); }}>Projects</a></li>
+            <li 
+              className="nav-item-dropdown"
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
+            >
+              <a 
+                href="#projects" 
+                className="nav-link nav-link-has-dropdown" 
+                onClick={(e) => { e.preventDefault(); handleProjectFilterClick('all'); }}
+              >
+                Projects
+                <svg className="nav-dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </a>
+
+              <ul className={`nav-dropdown-menu ${dropdownOpen ? 'show' : ''}`}>
+                <li>
+                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('all')}>
+                    <span className="nav-dropdown-icon">✦</span> All Projects
+                  </div>
+                </li>
+                <li>
+                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('interior')}>
+                    <span className="nav-dropdown-icon">🛋️</span> Interior Design
+                  </div>
+                </li>
+                <li>
+                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('construction')}>
+                    <span className="nav-dropdown-icon">🏗️</span> Construction
+                  </div>
+                </li>
+                <li>
+                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('residential')}>
+                    <span className="nav-dropdown-icon">🏡</span> Residential
+                  </div>
+                </li>
+                <li>
+                  <div className="nav-dropdown-item" onClick={() => handleProjectFilterClick('commercial')}>
+                    <span className="nav-dropdown-icon">🏢</span> Commercial
+                  </div>
+                </li>
+              </ul>
+            </li>
+            {mobileMenuOpen && (
+              <li className="mobile-only-subnav" style={{ width: '100%' }}>
+                <ul className="mobile-nav-sublinks">
+                  <li className="mobile-sublink" onClick={() => handleProjectFilterClick('interior')}>
+                    <span>🛋️</span> Interior Design
+                  </li>
+                  <li className="mobile-sublink" onClick={() => handleProjectFilterClick('construction')}>
+                    <span>🏗️</span> Construction
+                  </li>
+                  <li className="mobile-sublink" onClick={() => handleProjectFilterClick('residential')}>
+                    <span>🏡</span> Residential
+                  </li>
+                  <li className="mobile-sublink" onClick={() => handleProjectFilterClick('commercial')}>
+                    <span>🏢</span> Commercial
+                  </li>
+                </ul>
+              </li>
+            )}
             <li><a href="#process" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('process'); }}>Process</a></li>
             <li><a href="#contact" className="nav-link" onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}>Contact</a></li>
           </ul>
@@ -1148,11 +1221,20 @@ function App() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleSelectProjectCategory = (filter) => {
+    setActiveCategory(filter);
+    const el = document.getElementById('projects');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const isConstructionTheme = (doorMode === 'construction' || activeCategory === 'construction');
 
   return (
     <div className={`app-root ${isConstructionTheme ? 'theme-construction-page' : ''}`}>
-      <Header onOpenQuote={() => handleOpenQuote()} />
+      <Header 
+        onOpenQuote={() => handleOpenQuote()} 
+        onSelectProjectCategory={handleSelectProjectCategory} 
+      />
       
       {/* Signature Split Hero with shared door state */}
       <SplitHero 
